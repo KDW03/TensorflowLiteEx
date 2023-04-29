@@ -37,4 +37,9 @@ class DrawActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onDestroy() {
+        cls.finish()
+        super.onDestroy()
+    }
 }

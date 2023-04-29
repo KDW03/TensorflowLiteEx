@@ -41,7 +41,7 @@ class Classifier(private val context: Context) {
 
     fun classify(image: Bitmap): Pair<Int, Float> {
         val buffer = convertBitmapToGrayByteBuffer(resizeBitmap(image))
-        val result = Array(1){ FloatArray(modelOutputClasses) }
+        val result = Array(1) { FloatArray(modelOutputClasses) }
         interpreter.run(buffer, result)
         return argmax(result[0])
     }
@@ -94,5 +94,9 @@ class Classifier(private val context: Context) {
         val startOffset = afd.startOffset
         val declaredLength = afd.declaredLength
         return fc.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
+    }
+
+    fun finish() {
+        interpreter.close()
     }
 }
